@@ -5,12 +5,10 @@
  * */
 
 public class Employee{
+	
+	private String pps, surname, firstName, department;
 	private int employeeId;
-	private String pps;
-	private String surname;
-	private String firstName;
 	private char gender;
-	private String department;
 	private double salary;
 	private boolean fullTime;
 
@@ -25,8 +23,14 @@ public class Employee{
 		this.salary = 0;
 		this.fullTime = false;
 	}//end Employee with no details
+	
+	
+	
+	
+	
+	//COULD DO A CREATION METHOD SPECIFIC TO EMPLYEE PERSONAL DETAILS, - NAME, SURNAME, PPSNUMBER, GENDER
 
-	// Create Employee with details
+	// Create Employee with details - CREATION METHOD
 	public Employee(int employeeId, String pps, String surname, String firstName, char gender, String department, double salary,
 			boolean fullTime) {
 		this.employeeId = employeeId;
@@ -38,6 +42,9 @@ public class Employee{
 		this.salary = salary;
 		this.fullTime = fullTime;
 	}// end Employee with details
+	
+	
+	//CAN CREATE SPECIFIC METHODS FOR CRETING PEOPLE/ EMPLOYEE DETAILS (MAY USE INTERFACE FOR THIS INSTEAD)
 
 	// Getter methods
 	public int getEmployeeId() {
