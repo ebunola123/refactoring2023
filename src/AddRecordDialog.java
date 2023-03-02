@@ -1,9 +1,8 @@
-/*
- * 
+/* AddRecordDialog - Version 3
  * This is a dialog for adding new Employees and saving records to file
-   Cleared a few comments and renamed object/ variable names
- * 
- * */
+   -Cleared a few more comments
+   -Cleared 'setToWhite() method and set backgrounds to white within 'dialogPane' method
+ */
 
 import java.awt.Color;
 import java.awt.Container;
@@ -69,25 +68,34 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 		panel.add(new JLabel("PPS Number:"), "growx, pushx");
 		panel.add(ppsField = new JTextField(20), "growx, pushx, wrap");
+		ppsField.setBackground(Color.WHITE);
 
 		panel.add(new JLabel("Surname:"), "growx, pushx");
 		panel.add(surnameField = new JTextField(20), "growx, pushx, wrap");
+		surnameField.setBackground(Color.WHITE);
+	
 
 		panel.add(new JLabel("First Name:"), "growx, pushx");
 		panel.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
+		firstNameField.setBackground(Color.WHITE);
 
 		panel.add(new JLabel("Gender:"), "growx, pushx");
 		panel.add(genderCombo = new JComboBox<String>(this.empDetails.gender), "growx, pushx, wrap");
-
+		genderCombo.setBackground(Color.WHITE);
+		
 		panel.add(new JLabel("Department:"), "growx, pushx");
 		panel.add(departmentCombo = new JComboBox<String>(this.empDetails.department), "growx, pushx, wrap");
-
+		departmentCombo.setBackground(Color.WHITE);
+		
+		
 		panel.add(new JLabel("Salary:"), "growx, pushx");
 		panel.add(salaryField = new JTextField(20), "growx, pushx, wrap");
+		salaryField.setBackground(Color.WHITE);
 
 		panel.add(new JLabel("Full Time:"), "growx, pushx");
 		panel.add(fullTimeCombo = new JComboBox<String>(this.empDetails.fullTime), "growx, pushx, wrap");
-
+		fullTimeCombo.setBackground(Color.WHITE);
+		
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);
 		save.requestFocus();
@@ -95,10 +103,10 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		cancel.addActionListener(this);
 
 		panel.add(buttonPanel, "span 2,growx, pushx,wrap");
-		// parent.example();
+		
 		// loop through all panel components and add fonts and listeners
 		 for (int i = 0; i < panel.getComponentCount(); i++) {
-			 panel.getComponent(i).setFont(empDetails.font1); //calling empdetails obj
+			 panel.getComponent(i).setFont(empDetails.font1); 
 			
 			if (panel.getComponent(i) instanceof JComboBox) {
 				panel.getComponent(i).setBackground(Color.WHITE);
@@ -172,56 +180,53 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		if (departmentCombo.getSelectedIndex() == 0) {
 			departmentCombo.setBackground(new Color(255, 150, 150));
 			valid = false;
-		}// end if
+		}
 		
 		try {// try to get values from text field
 			Double.parseDouble(salaryField.getText());
+			
 			// check if salary is greater than 0
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(new Color(255, 150, 150));
 				valid = false;
-			}// end if
-		}// end try
+			}
+			
+		}
 		
 		catch (NumberFormatException num) {
 			salaryField.setBackground(new Color(255, 150, 150));
 			valid = false;
-		}// end catch
+		}
+		
 		if (fullTimeCombo.getSelectedIndex() == 0) {
 			fullTimeCombo.setBackground(new Color(255, 150, 150));
 			valid = false;
-		}// end if
+		}
+		
 		return valid;
-	}// end checkInput
+	}
 
-	// set text field to white colour
-	public void setToWhite() {
-		ppsField.setBackground(Color.WHITE);
-		surnameField.setBackground(Color.WHITE);
-		firstNameField.setBackground(Color.WHITE);
-		salaryField.setBackground(Color.WHITE);
-		genderCombo.setBackground(Color.WHITE);
-		departmentCombo.setBackground(Color.WHITE);
-		fullTimeCombo.setBackground(Color.WHITE);
-	}// end setToWhite
-
+	
 	// action performed
 	public void actionPerformed(ActionEvent e) {
+		
 		// if chosen option save, save record to file
 		if (e.getSource() == save) {
+			
 			// if inputs correct, save record
 			if (checkInput()) {
-				addRecord();// add record to file
-				dispose();// dispose dialog
+				addRecord();
+				dispose();
 				this.empDetails.changesMade = true;
-			}// end if
-			// else display message and set text fields to white colour
+			}
+			
 			else {
 				JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-				setToWhite();
-			}// end else
-		}// end if
+				
+			}
+		}
 		else if (e.getSource() == cancel)
-			dispose();// dispose dialog
-	}// end actionPerformed
-}// end class AddRecordDialog
+			dispose();
+	}
+	
+}
