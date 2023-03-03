@@ -1,6 +1,6 @@
-/* SearchBySurnameDialog - Version 2
- * This is a dialog for searching Employees by their surname.
-   Erased extra comments
+/* SearchBySurnameDialog - Version 3
+   -Renamed variables
+   This is a dialog for searching Employees by their surname.
  * */
 
 import java.awt.Container;
@@ -19,15 +19,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 public class SearchBySurnameDialog extends JDialog implements ActionListener{
-	EmployeeDetails parent;
+	EmployeeDetails empDetails;
 	JButton search, cancel;
 	JTextField searchField;
 	
 	// constructor for search by surname dialog
-	public SearchBySurnameDialog(EmployeeDetails parent) {
+	public SearchBySurnameDialog(EmployeeDetails empDetails) {
 		setTitle("Search by Surname");
 		setModal(true);
-		this.parent = parent;
+		this.empDetails = empDetails;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JScrollPane scrollPane = new JScrollPane(searchPane());
@@ -51,9 +51,9 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 	
 		textPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		textPanel.add(searchLabel = new JLabel("Enter Surname:"));
-		searchLabel.setFont(this.parent.font1);
+		searchLabel.setFont(this.empDetails.font1);
 		textPanel.add(searchField = new JTextField(20));
-		searchField.setFont(this.parent.font1);
+		searchField.setFont(this.empDetails.font1);
 		searchField.setDocument(new JTextFieldLimit(20));
 
 		buttonPanel.add(search = new JButton("Search"));
@@ -72,8 +72,8 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == search){
-			this.parent.searchBySurnameField.setText(searchField.getText());
-			this.parent.searchEmployeeBySurname();
+			this.empDetails.searchBySurnameField.setText(searchField.getText());
+			this.empDetails.searchEmployeeBySurname();
 			dispose();
 		}
 		else if(e.getSource() == cancel)
