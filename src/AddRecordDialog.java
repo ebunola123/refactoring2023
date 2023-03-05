@@ -1,7 +1,7 @@
-/* AddRecordDialog - Version 3
+/* AddRecordDialog - Version 4
  * This is a dialog for adding new Employees and saving records to file
-   -Cleared a few more comments
-   -Cleared 'setToWhite() method and set backgrounds to white within 'dialogPane' method
+   -Cleared "this" in line 214
+   -Created checkCorrectInput() method 
  */
 
 import java.awt.Color;
@@ -27,7 +27,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
 	JButton save, cancel;
-	EmployeeDetails empDetails = new EmployeeDetails();
+	EmployeeDetails empDetails;
 	
 	// constructor for add record dialog
 	public AddRecordDialog(EmployeeDetails parent) {
@@ -49,7 +49,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	
 	
 	
-	
 
 	// initialize dialog container
 	public Container dialogPane() {
@@ -58,14 +57,12 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		buttonPanel = new JPanel();
 		JTextField field;
 		
-		
 		panel.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
 		panel.add(new JLabel("ID:"), "growx, pushx");
 		panel.add(idField = new JTextField(20), "growx, pushx, wrap");
 		idField.setEditable(false);
 		
-
 		panel.add(new JLabel("PPS Number:"), "growx, pushx");
 		panel.add(ppsField = new JTextField(20), "growx, pushx, wrap");
 		ppsField.setBackground(Color.WHITE);
@@ -73,7 +70,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		panel.add(new JLabel("Surname:"), "growx, pushx");
 		panel.add(surnameField = new JTextField(20), "growx, pushx, wrap");
 		surnameField.setBackground(Color.WHITE);
-	
 
 		panel.add(new JLabel("First Name:"), "growx, pushx");
 		panel.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
@@ -86,7 +82,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		panel.add(new JLabel("Department:"), "growx, pushx");
 		panel.add(departmentCombo = new JComboBox<String>(this.empDetails.department), "growx, pushx, wrap");
 		departmentCombo.setBackground(Color.WHITE);
-		
 		
 		panel.add(new JLabel("Salary:"), "growx, pushx");
 		panel.add(salaryField = new JTextField(20), "growx, pushx, wrap");
@@ -125,7 +120,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		
 		idField.setText(Integer.toString(this.empDetails.getNextFreeId()));
 		
-		
 		return panel;
 	}
 
@@ -145,37 +139,39 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		empDetails.addRecord(theEmployee);
 		empDetails.displayRecords(theEmployee);
 		
+	}
+	
+	// display error color
+	public JTextField checkCorrectInput(JTextField field) {
+		field.setBackground(new Color(255, 150, 150));
+		return field;
 		
 	}
 	
-	
-	
-	
-	
-
 	// check for input in text fields
 	public boolean checkInput() {
 		boolean valid = true;
 		// if any of inputs are in wrong format, colour text field and display message
 		if (ppsField.getText().isEmpty() || empDetails.correctPps(ppsField.getText().trim(), -1) ) {
-			ppsField.setBackground(new Color(255, 150, 150));
+			//ppsField.setBackground(new Color(255, 150, 150));
+			checkCorrectInput(ppsField);
 			valid = false;
-		}// end if
+		}
 		
 		if (surnameField.getText().isEmpty()) {
-			surnameField.setBackground(new Color(255, 150, 150));
+			checkCorrectInput(surnameField);
 			valid = false;
-		}// end if
+		}
 		
 		if (firstNameField.getText().isEmpty()) {
-			firstNameField.setBackground(new Color(255, 150, 150));
+			checkCorrectInput(firstNameField);
 			valid = false;
-		}// end if
+		}
 		
 		if (genderCombo.getSelectedIndex() == 0) {
 			genderCombo.setBackground(new Color(255, 150, 150));
 			valid = false;
-		}// end if
+		}
 		
 		if (departmentCombo.getSelectedIndex() == 0) {
 			departmentCombo.setBackground(new Color(255, 150, 150));
@@ -206,10 +202,8 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		return valid;
 	}
 
-	
 	// action performed
 	public void actionPerformed(ActionEvent e) {
-		
 		// if chosen option save, save record to file
 		if (e.getSource() == save) {
 			
@@ -217,12 +211,9 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			if (checkInput()) {
 				addRecord();
 				dispose();
-				this.empDetails.changesMade = true;
-			}
-			
-			else {
+				empDetails.changesMade = true;
+			} else {
 				JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-				
 			}
 		}
 		else if (e.getSource() == cancel)
