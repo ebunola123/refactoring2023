@@ -1,8 +1,6 @@
-/*
- * 
- * This is the definition of the Employee object
- * 
- * */
+/* Employee.java - Version 3
+ * -Cleared the first constructor with no details
+ * This is the definition of the Employee object */
 
 public class Employee{
 	
@@ -11,24 +9,6 @@ public class Employee{
 	private char gender;
 	private double salary;
 	private boolean fullTime;
-
-	// Create Employee with no details
-	public Employee() {
-		this.employeeId = 0;
-		this.pps = "";
-		this.surname = "";
-		this.firstName = "";
-		this.gender = '\0';
-		this.department = "";
-		this.salary = 0;
-		this.fullTime = false;
-	}//end Employee with no details
-	
-	
-	
-	
-	
-	//COULD DO A CREATION METHOD SPECIFIC TO EMPLYEE PERSONAL DETAILS, - NAME, SURNAME, PPSNUMBER, GENDER
 
 	// Create Employee with details - CREATION METHOD
 	public Employee(int employeeId, String pps, String surname, String firstName, char gender, String department, double salary,
@@ -41,10 +21,7 @@ public class Employee{
 		this.department = department;
 		this.salary = salary;
 		this.fullTime = fullTime;
-	}// end Employee with details
-	
-	
-	//CAN CREATE SPECIFIC METHODS FOR CRETING PEOPLE/ EMPLOYEE DETAILS (MAY USE INTERFACE FOR THIS INSTEAD)
+	}
 
 	// Getter methods
 	public int getEmployeeId() {
@@ -123,5 +100,5 @@ public class Employee{
 		return "Employee ID: " + this.employeeId + "\nPPS Number: " + this.pps + "\nSurname: " + this.surname
 				+ "\nFirst Name: " + this.firstName + "\nGender: " + this.gender + "\nDepartment: " + this.department + "\nSalary: " + this.salary
 				+ "\nFull Time: " + bool;
-	}// end toString
-}// end class Employee
+	}
+}
